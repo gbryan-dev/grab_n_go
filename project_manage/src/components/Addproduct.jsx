@@ -1,35 +1,29 @@
 import React, { useState } from 'react';
 
-function AddProduct({ addProduct }) {
+const ProductForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !price) return;
-    const id = new Date().getTime().toString();
-    addProduct({ id, name, price });
+    onSubmit(name);
     setName('');
-    setPrice('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Product Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
-      <button type="submit">Add Product</button>
-    </form>
+    <div className="container mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Add New Product</h1>
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          placeholder="Product Name" 
+          value={name} 
+          onChange={(e) => setName(e.target.value)} 
+          className="border border-gray-300 rounded-md px-4 py-2 mb-2"
+        />
+        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">Add Product</button>
+      </form>
+    </div>
   );
-}
+};
 
-export default AddProduct;
+export default ProductForm;
